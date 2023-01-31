@@ -8,7 +8,12 @@ const updateOrder = async (order) => {
   return await ordersRepository.updateOrder(order)
 }
 
+const updateEntregue = async (order) => {
+  return await ordersRepository.updateEntregue(order);
+}
+
 export default {
   createOrder,
-  updateOrder
+  updateOrder,
+  updateEntregue
 }

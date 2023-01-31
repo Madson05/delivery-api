@@ -30,7 +30,22 @@ const updateOrder = async (req, res, next) => {
   }
 }
 
+const updateEntregue = async (req, res, next) => {
+  try{
+    let order = req.body;
+    if (!order.id || order.entregue == null || typeof order.entregue !== "boolean")
+      throw new Error(
+        "Os campos id e entregue devem ser fornecidos no JSON da requisição e o campo entregue deve ser do tipo boolean (true ou false)"
+      );
+
+    res.send(await ordersService.updateEntregue(order))
+
+  }catch(error){
+    next(error)
+  }
+}
 export default {
   createOrder,
-  updateOrder
+  updateOrder,
+  updateEntregue
 };

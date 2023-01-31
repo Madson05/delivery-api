@@ -26,23 +26,50 @@ const createOrder = async (order) => {
 };
 
 const updateOrder = async (order) => {
-  const data = await getOrders();
+  try {
+    const data = await getOrders();
 
-  const index = data.orders.findIndex((a) => a.id === order.id);
+    const index = data.orders.findIndex((a) => a.id === order.id);
 
-  if (index === -1) throw new Error("Registro não encontrado na base de dados");
+    if (index === -1)
+      throw new Error("Registro não encontrado na base de dados");
 
-  data.orders[index].cliente = order.client;
-  data.orders[index].produto = order.product;
-  data.orders[index].valor = order.value;
-  data.orders[index].entregue = order.entregue;
+    data.orders[index].cliente = order.client;
+    data.orders[index].produto = order.product;
+    data.orders[index].valor = order.value;
+    data.orders[index].entregue = order.entregue;
 
-  await writeFile(fileName, JSON.stringify(data));
-  
-  return (data.orders[index]);
+    await writeFile(fileName, JSON.stringify(data));
+
+    return data.orders[index];
+  } catch (error) {
+    return error;
+  }
+};
+
+const updateEntregue = async (order) => {
+  try {
+    
+    const data = await getOrders();
+
+    const index = data.orders.findIndex((a) => a.id === order.id);
+
+    if (index === -1)
+      throw new Error("Registro não encontrado na base de dados");
+
+    data.orders[index].entregue = order.entregue;
+
+    await writeFile(fileName, JSON.stringify(data));
+    
+    return data.orders[index];
+
+  } catch (error) {
+    return error
+  }
 };
 
 export default {
   createOrder,
   updateOrder,
+  updateEntregue,
 };
