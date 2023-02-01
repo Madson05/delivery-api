@@ -9,11 +9,18 @@ const updateOrder = async (order) => {
 }
 
 const updateEntregue = async (order) => {
+  
   return await ordersRepository.updateEntregue(order);
+}
+
+const deleteOrder = async (id) => {
+  
+  return await ordersRepository.deleteOrder(id);
 }
 
 export default {
   createOrder,
   updateOrder,
-  updateEntregue
+  updateEntregue,
+  deleteOrder
 }
