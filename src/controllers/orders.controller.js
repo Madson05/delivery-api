@@ -66,11 +66,24 @@ const getOrder = async (req, res, next) => {
   }
 }
 
+const valorCliente = async (req, res, next) => {
+  try{
+    const client = req.body;
+
+    if(!client.client) throw new Error("Campo client obrigatorio")
+
+    res.send(await ordersService.valorCliente(client.client))
+  }catch(error){
+    next(error)
+  }
+}
+
 
 export default {
   createOrder,
   updateOrder,
   updateEntregue,
   deleteOrder,
-  getOrder
+  getOrder,
+  valorCliente
 };

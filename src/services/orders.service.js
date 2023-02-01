@@ -4,28 +4,53 @@ const createOrder = async (order) => {
   return await ordersRepository.createOrder(order);
 };
 const updateOrder = async (order) => {
-  
-  return await ordersRepository.updateOrder(order)
-}
+  return await ordersRepository.updateOrder(order);
+};
 
 const updateEntregue = async (order) => {
-  
-  return await ordersRepository.updateEntregue(order);
-}
+
+  const data = await ordersRepository.getOrders();
+
+  const index = data.orders.findIndex((a) => a.id === order.id);
+
+  if (index === -1) throw new Error("Registro não encontrado na base de dados");
+
+  data.orders[index].entregue = order.entregue;
+
+  return await ordersRepository.updateOrder(data.orders[index]);
+};
 
 const deleteOrder = async (id) => {
-  
   return await ordersRepository.deleteOrder(id);
-}
+};
+
+
 const getOrder = async (id) => {
+  const data = await ordersRepository.getOrders();
   
-  return await ordersRepository.getOrder(id);
-}
+  let order = data.orders.filter((order) => order.id === parseInt(id))
+
+  return order;
+};
+
+const valorCliente = async (cliente) => {
+  const data = await ordersRepository.getOrders();
+  let somaValor = 0;
+
+  data.orders.forEach((order) => {
+    if ((order.cliente === cliente) && order.entregue === true) {
+      somaValor += order.valor;
+    }
+  });
+
+  return { somaValor };
+};
 
 export default {
   createOrder,
   updateOrder,
   updateEntregue,
-  deleteOrder, 
-  getOrder
-}
+  deleteOrder,
+  getOrder,
+  valorCliente,
+};
