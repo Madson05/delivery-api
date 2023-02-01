@@ -3,9 +3,9 @@ import ordersService from "../services/orders.service.js";
 const createOrder = async (req, res, next) => {
   try {
     let order = req.body;
-    if (!order.client || !order.product || order.value === null)
+    if (!order.cliente || !order.produto || order.valor === null)
       throw new Error(
-        "Os campos client, product e value devem ser fornecidos no JSON da requisição"
+        "Os campos cliente, produto e valor devem ser fornecidos no JSON da requisição"
       );
     res.send(await ordersService.createOrder(order));
   } catch (error) {
@@ -17,14 +17,14 @@ const updateOrder = async (req, res, next) => {
   try {
     let order = req.body;
     if (
-      !order.client ||
-      !order.product ||
-      order.value === null ||
+      !order.cliente ||
+      !order.produto ||
+      order.valor === null ||
       !order.id ||
       order.entregue == null
     )
       throw new Error(
-        "Os campos id, client, product, value e entregue devem ser fornecidos no JSON da requisição"
+        "Os campos id, cliente, produto, valor e entregue devem ser fornecidos no JSON da requisição"
       );
     if (typeof order.entregue !== "boolean")
       throw new Error(
@@ -49,8 +49,8 @@ const updateEntregue = async (req, res, next) => {
         "Os campos id e entregue devem ser fornecidos no JSON da requisição e o campo entregue deve ser do tipo boolean (true ou false)"
       );
 
-    console.log(await ordersService.updateEntregue(order));
-    res.end();
+    
+    res.send(await ordersService.updateEntregue(order));
   } catch (error) {
     next(error);
   }
@@ -78,22 +78,22 @@ const getOrder = async (req, res, next) => {
 
 const valueClient = async (req, res, next) => {
   try {
-    const client = req.body;
+    const cliente = req.body;
 
-    if (!client.client) throw new Error("Campo client obrigatorio");
+    if (!cliente.cliente) throw new Error("Campo cliente obrigatorio");
 
-    res.send(await ordersService.valueClient(client.client));
+    res.send(await ordersService.valueClient(cliente.cliente));
   } catch (error) {
     next(error);
   }
 };
 const valueOrder = async (req, res, next) => {
   try {
-    const client = req.body;
+    const cliente = req.body;
 
-    if (!client.product) throw new Error("Campo product obrigatorio");
+    if (!cliente.produto) throw new Error("Campo produto obrigatorio");
 
-    res.send(await ordersService.valueOrder(client.product));
+    res.send(await ordersService.valueOrder(cliente.produto));
   } catch (error) {
     next(error);
   }

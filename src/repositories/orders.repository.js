@@ -11,9 +11,9 @@ const createOrder = async (order) => {
 
   order = {
     id: data.nextId++,
-    cliente: order.client,
-    produto: order.product,
-    valor: order.value,
+    cliente: order.cliente,
+    produto: order.produto,
+    valor: order.valor,
     entregue: false,
     timeStamp: new Date(),
   };
@@ -31,10 +31,10 @@ const updateOrder = async (order) => {
   const index = data.orders.findIndex((a) => a.id === order.id);
 
   if (index === -1) throw new Error("Registro não encontrado na base de dados");
-
-  data.orders[index].cliente = order.client;
-  data.orders[index].produto = order.product;
-  data.orders[index].valor = order.value;
+  console.log(order)
+  data.orders[index].cliente = order.cliente;
+  data.orders[index].produto = order.produto;
+  data.orders[index].valor = order.valor;
   data.orders[index].entregue = order.entregue;
 
   await writeFile(fileName, JSON.stringify(data));

@@ -15,7 +15,7 @@ const updateEntregue = async (order) => {
   if (index === -1) throw new Error("Registro não encontrado na base de dados");
 
   data.orders[index].entregue = order.entregue;
-
+  console.log(data.orders[index]);
   return await ordersRepository.updateOrder(data.orders[index]);
 };
 
@@ -57,8 +57,6 @@ const valueOrder = async (product) => {
   return { sumValue };
 };
 
-
-
 export default {
   createOrder,
   updateOrder,
@@ -66,5 +64,5 @@ export default {
   deleteOrder,
   getOrder,
   valueClient,
-  valueOrder
+  valueOrder,
 };
