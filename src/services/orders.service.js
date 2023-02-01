@@ -17,10 +17,15 @@ const deleteOrder = async (id) => {
   
   return await ordersRepository.deleteOrder(id);
 }
+const getOrder = async (id) => {
+  
+  return await ordersRepository.getOrder(id);
+}
 
 export default {
   createOrder,
   updateOrder,
   updateEntregue,
-  deleteOrder
+  deleteOrder, 
+  getOrder
 }

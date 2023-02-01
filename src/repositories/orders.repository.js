@@ -82,9 +82,18 @@ const deleteOrder = async (id) => {
 
 }
 
+const getOrder = async (id)  => {
+  const data = await getOrders();
+  
+  let order = data.orders.filter((order) => order.id === parseInt(id))
+
+  return order;
+}
+
 export default {
   createOrder,
   updateOrder,
   updateEntregue,
   deleteOrder,
+  getOrder
 };

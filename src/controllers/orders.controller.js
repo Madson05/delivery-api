@@ -47,9 +47,23 @@ const updateEntregue = async (req, res, next) => {
 }
 
 const deleteOrder = async (req, res, next) => {
-  const id = req.params.id;
+  try{
+    const id = req.params.id;
 
-  res.send(await ordersService.deleteOrder(id))
+    res.send(await ordersService.deleteOrder(id))
+  }catch(error){
+    next(error)
+  }
+}
+
+const getOrder = async (req, res, next) => {
+  try{
+    const id = req.params.id;
+
+    res.send(await ordersService.getOrder(id))
+  }catch(error){
+    next(error)
+  }
 }
 
 
@@ -57,5 +71,6 @@ export default {
   createOrder,
   updateOrder,
   updateEntregue,
-  deleteOrder
+  deleteOrder,
+  getOrder
 };
