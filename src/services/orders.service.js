@@ -8,7 +8,6 @@ const updateOrder = async (order) => {
 };
 
 const updateEntregue = async (order) => {
-
   const data = await ordersRepository.getOrders();
 
   const index = data.orders.findIndex((a) => a.id === order.id);
@@ -24,27 +23,41 @@ const deleteOrder = async (id) => {
   return await ordersRepository.deleteOrder(id);
 };
 
-
 const getOrder = async (id) => {
   const data = await ordersRepository.getOrders();
-  
-  let order = data.orders.filter((order) => order.id === parseInt(id))
+
+  let order = data.orders.filter((order) => order.id === parseInt(id));
 
   return order;
 };
 
-const valorCliente = async (cliente) => {
+const valueClient = async (cliente) => {
   const data = await ordersRepository.getOrders();
-  let somaValor = 0;
+  let sumValue = 0;
 
   data.orders.forEach((order) => {
-    if ((order.cliente === cliente) && order.entregue === true) {
-      somaValor += order.valor;
+    if (order.cliente === cliente && order.entregue === true) {
+      sumValue += order.valor;
     }
   });
 
-  return { somaValor };
+  return { sumValue };
 };
+
+const valueOrder = async (product) => {
+  const data = await ordersRepository.getOrders();
+  let sumValue = 0;
+
+  data.orders.forEach((order) => {
+    if (order.produto === product && order.entregue === true) {
+      sumValue += 1;
+    }
+  });
+
+  return { sumValue };
+};
+
+
 
 export default {
   createOrder,
@@ -52,5 +65,6 @@ export default {
   updateEntregue,
   deleteOrder,
   getOrder,
-  valorCliente,
+  valueClient,
+  valueOrder
 };

@@ -8,7 +8,8 @@ router.put("/update", ordersController.updateOrder);
 router.patch("/updateEntregue", ordersController.updateEntregue);
 router.delete("/delete/:id", ordersController.deleteOrder);
 router.get("/get/:id", ordersController.getOrder);
-router.get("/valorCliente", ordersController.valorCliente);
+router.get("/valueClient", ordersController.valueClient);
+router.get("/valueOrder", ordersController.valueOrder);
 
 
 router.use((error, req, res, next) => {
