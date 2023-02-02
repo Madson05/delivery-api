@@ -50,11 +50,39 @@ const valueOrder = async (product) => {
 
   data.orders.forEach((order) => {
     if (order.produto === product && order.entregue === true) {
-      sumValue += 1;
+      sumValue += order.valor;
     }
   });
 
   return { sumValue };
+};
+
+const topProducts = async () => {
+  const listProducts = [];
+
+  const data = await ordersRepository.getOrders();
+  const products = data.orders
+    .filter((order) => order.entregue === true)
+    .map((order) => order.produto);
+
+  const uniqueProducts = new Set(products);
+
+  uniqueProducts.forEach((order) => {
+    listProducts.push({ qnt: 0, produto: order });
+  });
+
+  products.forEach((product) => {
+    listProducts.forEach((productAux) => {
+      if(product === productAux.produto) productAux.qnt++
+    })
+
+  })
+
+  listProducts.sort((a,b) => b.qnt-a.qnt)
+
+  
+
+  return listProducts;
 };
 
 export default {
@@ -65,4 +93,5 @@ export default {
   getOrder,
   valueClient,
   valueOrder,
+  topProducts,
 };

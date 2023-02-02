@@ -1,3 +1,4 @@
+
 import ordersService from "../services/orders.service.js";
 
 const createOrder = async (req, res, next) => {
@@ -99,6 +100,15 @@ const valueOrder = async (req, res, next) => {
   }
 };
 
+const topProducts = async (req, res, next) => {
+  try{
+    res.send(await ordersService.topProducts())
+  }catch(error){
+    next(error)
+  }
+
+}
+
 export default {
   createOrder,
   updateOrder,
@@ -106,5 +116,6 @@ export default {
   deleteOrder,
   getOrder,
   valueClient,
-  valueOrder
+  valueOrder,
+  topProducts
 };
